@@ -1,8 +1,6 @@
 # image-stitcher
 
----
-
-A library and script for stitching images into one image file.
+A library and script for stitching multiple images into one image file.
 
 ## Overview
 
@@ -20,7 +18,7 @@ WHAT NEEDS TO BE INSTALLED
 
 - Add compatibility for .png or other files that contain transparency
 
-- Add support for more that 9 images
+- Add support for more than 9 images
 
 - Add documentation for using the ImageStitcher module
 
