@@ -1,6 +1,6 @@
 # image-stitcher
 
-A library and script for stitching multiple images into one image file.
+A python library and script for stitching multiple images neatly into one image file.
 
 ## Overview
 
@@ -13,6 +13,8 @@ HOW DO I USE IT
 ## Dependencies
 
 WHAT NEEDS TO BE INSTALLED
+
+Only works with python3 > 
 
 ### TODO
 

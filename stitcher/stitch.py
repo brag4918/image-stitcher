@@ -28,7 +28,7 @@ def main():
 	try: myImage.setTitleColor(config['title_color'])
 	except: pass
 
-	try: myImage.setFontDir(config["font_path"])
+	try: myImage.setFontPath(config["font_path"])
 	except: pass
 
 	try: myImage.setTitleSize(config['title_size'])
@@ -41,8 +41,8 @@ def main():
 								  config['horizontal_space']))
 	except: pass
 	
-	try: myImage.setWidth(config["width"])
-	except: myImage.setWidth()
+	try: myImage.setSize(config["width"])
+	except: myImage.setSize()
 	
 	myImage.render()
 	
