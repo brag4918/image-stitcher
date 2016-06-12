@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 from PIL import Image
 from PIL import ImageFont
 from PIL import ImageDraw 
@@ -71,10 +73,13 @@ class ImageStitch:
     
     def _resizeImages(self):
         '''
-        This method called by setWidth()
+        This method called by setSize()
+        Images in a column should all be the same width and height.
         '''
         # sum of widths of a row of images
-        sum_width = self.images[0].width*self.num_columns
+        sum_width = 0
+        for i in range(0, self.num_columns):
+            sum_width += self.images[i].width
             
         max_graph_space = self.graph_size[0] \
                         - self.vert_space \
@@ -235,9 +240,9 @@ class ImageStitch:
                                       self.titleSize)
             font_height = textImg.textsize(self.title, font=font)[1]
             height += self.horz_space + font_height
-        rows = round(self.number_images / self.num_columns)
-        height += self.horz_space * rows
-        height += self.images[0].height * rows
+        rows = round(self.number_images/self.num_columns)
+        height += self.horz_space*rows
+        height += self.images[0].height*rows
         return height
     
     def setImageSpacing(self, line_spacing):
