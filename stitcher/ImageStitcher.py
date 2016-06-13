@@ -34,7 +34,50 @@ class ImageStitch:
         self.vert_space             = 5
         self.horz_space             = 5
         self.num_columns            = 1
-        
+    
+    def _sortImages(self):
+        '''
+        Should only be called by the render() method.
+        sortImages() is a bubble sort algorithm used to ensure images are
+        in the correct order. 
+        '''
+        print("Sorting images...")
+
+        index = 0
+        isSorted = False
+        changeMade = False
+
+        while isSorted == False:
+            # Ensure list index is within range
+            if index == len(self.images) - 1:
+                index = 0
+                # reset changesMade
+                changeMade = False
+
+            # Assign number to current and next image depending on
+            # prefixed number of the file name.
+            if self.images[index].info['fileName'][1] == '_':
+                currentImg = int(self.images[index].info['fileName'][0])
+            else:
+                currentImg = int(self.images[index].info['fileName'][:2])
+
+            if self.images[index + 1].info['fileName'][1] == '_':
+                nextImg    = int(self.images[index + 1].info['fileName'][0])
+            else:
+                nextImg    = int(self.images[index + 1].info['fileName'][:2])
+
+            if currentImg > nextImg:
+                # swap if necessary 
+                self.images[index], self.images[index + 1] = \
+                self.images[index + 1], self.images[index]
+                changeMade = True
+
+            index += 1
+
+            # if no changes are made at end of list, then the list is sorted
+            if index == len(self.images) - 1 and changeMade == False:
+                isSorted = True
+
     def loadImages(self):
         '''
         Loads all images in specified directory.
@@ -99,6 +142,9 @@ class ImageStitch:
         render() takes all the images and text specified, and pastes them
         into one image.  
         '''
+        # Ensure the images are in order.
+        self._sortImages()
+
         current_column = 1
         pos_x, pos_y = self.vert_space, self.horz_space
         # Draw the title if one exists
@@ -117,7 +163,7 @@ class ImageStitch:
             pos_x = self.vert_space
         # Draw the images 
         for img in self.images:
-            if img.info["fileName"][0] == '1':
+            if img.info["fileName"][:2] == '1_':
                 self.graph.paste(img, (int(pos_x), int(pos_y)))
                 pos_x += int(self.vert_space + img.width)
             else:
@@ -254,5 +300,4 @@ class ImageStitch:
         '''
         self.vert_space = line_spacing[0]
         self.horz_space = line_spacing[1]
-    
     

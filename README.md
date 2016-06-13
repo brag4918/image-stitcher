@@ -18,6 +18,8 @@ WHAT NEEDS TO BE INSTALLED
 
 Only works with python 3 >
 
+---
+
 #### TODO
 
 - ~~Add compatibility for .png or other files that contain transparency.~~ Done
