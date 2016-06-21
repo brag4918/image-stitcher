@@ -4,12 +4,21 @@ from PIL import Image
 from PIL import ImageFont
 from PIL import ImageDraw 
 import yaml
-import os, os.path
+import sys
+import os
+import os.path
 import ImageStitcher
 
 def main():
+	pathToFile = '.'
+	
+	try: pathToFile = sys.argv[1]
+	except:
+		print('Usage: ./stitch.py path/to/file')
+		return 1
 
-	configFile     = open('./config.yaml', 'r')
+	os.chdir(pathToFile)
+	configFile     = open(pathToFile + '/config.yaml', 'r')
 	configContents = configFile.read()
 	configFile.close()
 
@@ -35,6 +44,12 @@ def main():
 	except: pass
 
 	try: myImage.setColumns(config['columns'])
+	except: pass
+
+	try: myImage.setColorLabels(config['color_labels'])
+	except: pass
+
+	try: myImage.setColorLabelWidth(config['color_label_width'])
 	except: pass
 
 	try: myImage.setImageSpacing((config['vertical_space'],
