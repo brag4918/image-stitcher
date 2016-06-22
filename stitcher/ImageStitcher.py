@@ -20,7 +20,8 @@ class ImageStitch:
         self.image_source_directory = './img/'
         self.font_source_directory  = './font/'
         self.font                   = 'Helvetica'
-        self.titleSize              = 36            
+        self.titleSize              = 36
+        self.labelSize              = 32        
         self.title                  = ''
         self.titleColor             = '#000000'
         self.graph_size             = (700, 400)
@@ -28,7 +29,7 @@ class ImageStitch:
         self.graph                  = Image.new('RGB',
                                                 self.graph_size,
                                                 self.background_color)
-        self.labels                 = ['Hello']
+        self.labels                 = []
         self.colorLabels            = []
         self.colorLabelWidth        = 0
         self.images                 = []
@@ -162,7 +163,9 @@ class ImageStitch:
         pos_x, pos_y = self.vert_space, self.horz_space
 
         # Draw the title if one exists
+        title_exists = False
         if self.title != '':
+            title_exists = True
             textImg = ImageDraw.Draw(self.graph)
             font    = ImageFont.truetype(self.font_source_directory, 
                                          self.titleSize)
@@ -173,17 +176,26 @@ class ImageStitch:
             pos_x       = (self.graph.width / 2) - (font_width / 2)
             textImg.text((pos_x, pos_y), self.title, self.titleColor, font=font)
             # Reset position after drawing title
-            pos_y += (self.vert_space + font_height)
+            pos_y += ((self.vert_space*2) + font_height)
             pos_x = self.vert_space
 
         # Draw color labels if color labels exist
         color_labels_exist = False
+        pos_y_post_text = 0
         if len(self.colorLabels) > 0:
+            textImg = ImageDraw.Draw(self.graph)
             color_labels_exist = True
             # Throw warning if missing color labels
             if len(self.colorLabels) < (len(self.images) / self.num_columns):
                 self.warning('There are more rows than color labels.')
             print('Drawing color labels')
+            # If labels exist add horizontal space
+            if len(self.labels) > 0:
+                font    = ImageFont.truetype(self.font_source_directory, 
+                                         self.labelSize)
+                label_height = textImg.textsize(self.labels[0], font=font)[1]
+                pos_y_post_text = pos_y
+                pos_y += label_height + (self.horz_space*2)
             # For each color in listed, draw a rectangle on left side of image
             for color in self.colorLabels:
                 textImg.rectangle([pos_x,
@@ -193,11 +205,35 @@ class ImageStitch:
                                    fill=color)
                 pos_y += (self.horz_space + self.images[0].height)
             # Reset position after drawing color labels
-            pos_x += self.colorLabelWidth + self.vert_space
-            pos_y = ((self.vert_space*2) + font_height)
+            pos_x = self.colorLabelWidth + (self.vert_space*2)
+            pos_y = pos_y_post_text 
 
+        # Draw labels if labels exist
+        labels_exist = False
+        if len(self.labels) > 0:
+            labels_exist = True
+            textImg = ImageDraw.Draw(self.graph)
+            index   = 0
+            # Set font size to label size
+            font    = ImageFont.truetype(self.font_source_directory, 
+                                         self.labelSize)
+            for label in self.labels:
+                pos_x += self.images[index].width/2
+                font_width  = textImg.textsize(label, font=font)[0]
+                pos_x -= font_width/2
+                textImg.text((pos_x, pos_y), label, self.titleColor, font=font)
+                pos_x += self.images[index].width/2
+                pos_x += font_width/2
+                index += 1
+            # Reset position after drawing labels
+            pos_x = self.colorLabelWidth + (self.vert_space)
+            if color_labels_exist: pos_x += self.vert_space
+            font_height = textImg.textsize(self.labels[0], font=font)[1]
+            pos_y += ((self.horz_space*2) + font_height)
         
         # Draw the images
+        if title_exists != True and labels_exist != True:
+            pos_y += self.horz_space
         for img in self.images:
             # Draw the first image
             if img.info["fileName"][:2] == '1_':
@@ -291,14 +327,23 @@ class ImageStitch:
     
     def setLabels(self, labels):
         '''
-        setLabels() currently has no function. Future use will be to add
-        captions to the images pasted.
+        setLabels() sets captions for each column 
 
-        @param labels should be a list of captions in the order the images
-        were read in.
+        @param labels should be an array of captions of each column.
+
+        @example setLabels(['col 1', 'col 2', 'col 3'])
         '''
         self.labels = labels
-    
+
+    def setLabelSize(self, size):
+        '''
+        setLabelSize() is used to set the size of the font of labels.
+        If none is specified, a default size will be used.
+
+        @param size is an int specifying the size of the labels
+        '''
+        self.labelSize = size
+
     def setFont(self, font):
         '''
         setFont() currently has no function.
@@ -350,7 +395,15 @@ class ImageStitch:
             font = ImageFont.truetype(self.font_source_directory, 
                                       self.titleSize)
             font_height = textImg.textsize(self.title, font=font)[1]
-            height += self.horz_space + font_height
+            height += (self.horz_space*2) + font_height
+        # else:
+            # height -= self.horz_space
+        if len(self.labels) > 0:
+            textImg = ImageDraw.Draw(self.graph)
+            font = ImageFont.truetype(self.font_source_directory, 
+                                      self.labelSize)
+            font_height = textImg.textsize(self.labels[0], font=font)[1]
+            height += (self.horz_space*2) + font_height
         rows = round(self.number_images/self.num_columns)
         height += self.horz_space*rows
         height += self.images[0].height*rows

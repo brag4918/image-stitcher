@@ -11,7 +11,7 @@ import ImageStitcher
 
 def main():
 	pathToFile = '.'
-	
+
 	try: pathToFile = sys.argv[1]
 	except:
 		print('Usage: ./stitch.py path/to/file')
@@ -34,6 +34,9 @@ def main():
 	try: myImage.setTitle(config["title"])
 	except: pass
 
+	try: myImage.setLabels(config["labels"])
+	except: pass
+
 	try: myImage.setTitleColor(config['title_color'])
 	except: pass
 
@@ -41,6 +44,9 @@ def main():
 	except: pass
 
 	try: myImage.setTitleSize(config['title_size'])
+	except: pass
+
+	try: myImage.setLabelSize(config['label_size'])
 	except: pass
 
 	try: myImage.setColumns(config['columns'])
