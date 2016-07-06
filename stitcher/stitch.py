@@ -14,7 +14,7 @@ def main():
 
 	try: pathToFile = sys.argv[1]
 	except:
-		print('Usage: ./stitch.py path/to/file')
+		print('Usage: stitch path/to/project/dir')
 		return 1
 
 	os.chdir(pathToFile)
@@ -24,7 +24,8 @@ def main():
 
 	config = yaml.load(configContents)
 
-	myImage = ImageStitcher.ImageStitch(config["background_color"])
+	try: myImage = ImageStitcher.ImageStitch(config["background_color"])
+	except: myImage = ImageStitcher.ImageStitch('#FFFFFF')
 
 	try: myImage.setImageDir(config["img_path"])
 	except: pass
@@ -62,7 +63,7 @@ def main():
 								  config['horizontal_space']))
 	except: pass
 	
-	try: myImage.setSize(config["width"])
+	try: myImage.setSize(config['width'])
 	except: myImage.setSize()
 	
 	myImage.render()

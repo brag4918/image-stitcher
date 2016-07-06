@@ -1,12 +1,16 @@
 # image-stitcher
 
-A python library and script for stitching multiple images neatly into one image file.
+A python library and exec script for stitching multiple images neatly into one image file.
 
 ## Overview
 
 image-stitcher is a python class that makes use of [Pillow][link to pillow] to stitch together multiple images neatly into one image file.
 
 **ADD IMAGE FOR EXAMPLE HERE**
+
+## Installation of stitch
+
+HOW DO I INSTALL STITCH
 
 ## Examples
 
@@ -16,17 +20,17 @@ HOW DO I USE IT
 
 WHAT NEEDS TO BE INSTALLED
 
-Only works with python 3 >
-
 ---
 
 #### TODO
+
+- Finish this README
 
 - ~~Add compatibility for .png or other files that contain transparency.~~ Done
 
 - Find bug where certain .png images with transparent backgrounds dont load properly. 
 
-- Add support for more than 9 images. 
+- ~~Add support for more than 9 images.~~ Done (now supports up to 99 images)
 
 - ~~Add documentation for using the ImageStitcher module.~~ Done
 
