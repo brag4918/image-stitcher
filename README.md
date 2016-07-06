@@ -18,6 +18,8 @@ image-stitcher is a python class that makes use of [Pillow][link to pillow] to s
 
 Stitch is a stand alone exec program that was created using the Image-Stitcher module. PyInstaller was used to create the executable.
 
+Currently only works with MAC OSX.
+
 ## Installation
 
 1. [Download or clone here](https://github.com/brag4918/image-stitcher)
@@ -33,7 +35,9 @@ Stitch is a stand alone exec program that was created using the Image-Stitcher m
 Your project should have a main directory. Name this whatever you want. For Example 'MyProject'.
 
 Inside your project directory you should have two things.
+
 1. A directory by default called 'img'. This 'img' directory will hold all of the images you plan to stitch into your final image. You can change the name of this directory to anything you would like, but you must set the option 'img_path' in your config file to the desired name of your directory (more on that under config.yaml).
+
 2. A file named config.yaml to store the settings for your output/final image.
 
 
@@ -55,33 +59,35 @@ Here are all of the possible options **(some are required and are noted with a *
 Options:
 
 - title
-	- Title of the figure as a string (i.e. `'Figure 1.'`).
+	- Title of the figure as a string (e.g. `'Figure 1.'`).
 - title_color
-	- Color of the title in hex stored as a string (i.e. `'#FFFFFF'`)
+	- Color of the title in hex stored as a string (e.g. `'#FFFFFF'`)
 - title_size
-	- Font size of the title as an integer (i.e `38`)
+	- Font size of the title as an integer (e.g. `38`)
 - labels
-	- An array of strings that label the top of each column (i.e. `['col1', 'col2', 'col3']`)
+	- An array of strings that label the top of each column (e.g. `['col1', 'col2', 'col3']`)
 - label_size
-	- Font size of the labels as an integer (i.e `38`).
+	- Font size of the labels as an integer (e.g. `38`).
 - color_labels
-	- Colored boxes used to visually label a row. Appear on the left of the rows. Should be an array of strings containing hex values for each box (i.e. `['#FFFFFF', '#FF00FF', '#00FFFF']`).
+	- Colored boxes used to visually label a row. Appear on the left of the rows. Should be an array of strings containing hex values for each box (e.g. `['#FFFFFF', '#FF00FF', '#00FFFF']`).
 - background_color
-	- Color of the background of the final image in hex form (i.e `'#FFFFFF'`)
+	- Color of the background of the final image in hex form (e.g. `'#FFFFFF'`)
 - __*columns__
 	- Number of columns
 - vertical_space
-	- The amount of vertical space between the columns as an integer (i.e `3`). 
+	- The amount of vertical space between the columns as an integer (e.g. `3`). 
 - horizontal_space
-	- The amount of horizontal space between the columns as an integer (i.e `3`).
+	- The amount of horizontal space between the columns as an integer (e.g. `3`).
 - __*output_path__
-	- The location of the directory the output image should be written to relative to the location of the config.yaml file (i.e `'./output/'`).
+	- The location of the directory the output image should be written to relative to the location of the config.yaml file (e.g. `'./output/'`).
 - __*output_name__
-	- Name of the final image (i.e `'Figure1'`).
+	- Name of the final image (e.g. `'Figure1'`).
 - img_path
-	- path to the directory containing your images relative to your config.yaml file (i.e `'./img'`).
+	- path to the directory containing your images relative to your config.yaml file (e.g. `'./img'`).
 - __*width__
-	- Width of your final output image in pixels (i.e. `1000`). Recommended/default at 1000.
+	- Width of your final output image in pixels (e.g. `1000`). Recommended/default at 1000.
+- font_path
+	- location on your system of the desired font. Only guarunteed that .ttf files will work. The default font is Helvetica found in (`'/System/Library/Fonts/Helvetica.dfont'`).
 
 Example config.yaml file:
 
@@ -107,7 +113,7 @@ color_labels: ['#a77a00', '#e63b7a', '#00f900', '#ffb5af', '#919191']
 stitch can compose up to 99 images into one final image. For stitch to know how to order your images, you must use the naming scheme of "number"_"name of your image".jpg/png.
 
 stitch will read in the images and write them to your final image from left to right, top to bottom.
-In the config file, you should specify how many columns you want in your final image. An example of this would be if you have six images total (they should be named prefixed with 1\_, 2\_, 3\_...6\_) and you want two columns. The solution would be to set the option columns to 2 (i.e. `columns: 2`). This will give you two columns and three rows.
+In the config file, you should specify how many columns you want in your final image. An example of this would be if you have six images total (they should be named prefixed with 1\_, 2\_, 3\_...6\_) and you want two columns. The solution would be to set the option columns to 2 (e.g. `columns: 2`). This will give you two columns and three rows.
 
 Example:
 
