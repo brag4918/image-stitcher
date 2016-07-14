@@ -68,7 +68,7 @@ def main():
 	
 	myImage.render()
 	
-	myImage.save(config['output_path']+config['output_name'], "jpeg")
+	myImage.save(config['output_path']+config['output_name'], format='JPEG')
 
 
 if __name__ == '__main__':

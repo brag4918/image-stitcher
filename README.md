@@ -26,7 +26,7 @@ Currently only works with MAC OSX.
 
 2. Open the dir image-stitcher/stitcher/dist
 
-3. You must copy the stitch exec (located in above directory) file into your `/Users/User/bin/` directory (replace User with your user name).
+3. You must copy the stitch exec (located in above directory) file into your `/Users/User/bin/` directory (replace User with your user name). If you don't have a bin folder specific to your user, you must create one and add it to your .bash_profile or .bashrc file.
 
 ## Project Setup
 
@@ -73,7 +73,7 @@ Options:
 - background_color
 	- Color of the background of the final image in hex form (e.g. `'#FFFFFF'`)
 - __*columns__
-	- Number of columns
+	- Number of columns (e.g. `3`).
 - vertical_space
 	- The amount of vertical space between the columns as an integer (e.g. `3`). 
 - horizontal_space
@@ -133,13 +133,13 @@ Example:
 
 ## Usage In Terminal
 
-`stitch path/to/your/project/directory`
+`$ stitch path/to/your/project/directory`
 
 ## Integration With R / R Studio
 
 For some reason, within R Studio, using just `system('stitch')` does not work. R Studio wants to know exactly where the program lives, so the fix for now is as below.
 
-`system('~/bin/stitch path/to/your/project/directory')`
+`> system('~/bin/stitch path/to/your/project/directory')`
 
 ---
 
@@ -155,7 +155,7 @@ For some reason, within R Studio, using just `system('stitch')` does not work. R
 
 - ~~Add documentation for using the ImageStitcher module.~~ Done
 
-- Add examples of how to set up folder and config.yaml file. 
+- ~~Add examples of how to set up folder and config.yaml file.~~ Done 
 
 - Create getter methods for the ImageStitcher module/class.
 
