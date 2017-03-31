@@ -145,6 +145,8 @@ For some reason, within R Studio, using just `system('stitch')` does not work. R
 
 #### TODO
 
+- Add error catching
+
 - Finish this README
 
 - ~~Add compatibility for .png or other files that contain transparency.~~ Done
